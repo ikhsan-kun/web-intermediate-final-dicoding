@@ -1,0 +1,5 @@
+<<<<<<< HEAD
+https://ikhsan-kun.github.io/web-intermediate-akhir-dicoding/
+=======
+https://ikhsan-kun.github.io/web-intermediate-akhir-dicoding/
+>>>>>>> 226b58d (final)
