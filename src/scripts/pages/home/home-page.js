@@ -94,8 +94,4 @@ export default class HomePage {
     });
   }
 }
-<<<<<<< HEAD
-=======
 
-
->>>>>>> 226b58d (final)

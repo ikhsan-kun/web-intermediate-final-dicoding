@@ -9,15 +9,12 @@ export default class BookmarkPresenter {
 
   async loadBookmarks() {
     try {
-<<<<<<< HEAD
       // Ambil semua story tersimpan dari IndexedDB
       const dbInstance = await import("idb").then(({ openDB }) =>
         openDB("StoryApp", 1)
       );
       const stories = await dbInstance.getAll("saved-Story");
-=======
-      const stories = await Database.getAllReports();
->>>>>>> 226b58d (final)
+      // const stories = await Database.getAllReports();
       this.#view.onBookmarksLoaded(stories);
     } catch (err) {
       this.#view.onBookmarksFailed("Gagal memuat story tersimpan.");

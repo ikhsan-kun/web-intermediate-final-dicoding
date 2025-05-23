@@ -20,11 +20,6 @@ export default class DetailStoryPresenter {
         this.#view.onDetailStoryFailed(response.message);
         return;
       }
-<<<<<<< HEAD
-      this.#view.onDetailStoryLoaded(response.story || response);
-    } catch (err) {
-      this.#view.onDetailStoryFailed("Gagal memuat detail cerita.");
-=======
       // Simpan ke IndexedDB untuk offline
       await this.#dbModel.putReport(response.story || response);
       this.#view.onDetailStoryLoaded(response.story || response);
@@ -38,7 +33,6 @@ export default class DetailStoryPresenter {
           "Gagal memuat detail cerita (offline & belum pernah dibuka)."
         );
       }
->>>>>>> 226b58d (final)
     }
   }
 
