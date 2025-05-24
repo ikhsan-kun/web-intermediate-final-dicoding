@@ -44,7 +44,8 @@ export async function requestNotificationPermission() {
 }
 
 export async function getPushSubscription() {
-  const registration = await navigator.serviceWorker.getRegistration();
+  // Gunakan .ready agar pasti sudah aktif
+  const registration = await navigator.serviceWorker.ready;
   if (!registration) {
     console.error("Service worker belum terdaftar.");
     return null;
@@ -72,7 +73,8 @@ export async function subscribe() {
   }
 
   const { endpoint, keys } = pushSubscription.toJSON();
-  const response = await subscribePushNotification({ endpoint, keys });
+  const token = getAccessToken(); // pastikan token diambil
+  const response = await subscribePushNotification({ endpoint, keys }, token); // token dikirim
 
   if (!response.ok) {
     alert("Langganan push notification gagal diaktifkan.");

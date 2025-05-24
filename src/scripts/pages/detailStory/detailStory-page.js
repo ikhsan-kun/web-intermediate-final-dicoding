@@ -1,4 +1,5 @@
 import DetailStoryPresenter from "./detailStory-presenter";
+import Database from "../../database";
 import { parseActivePathname } from "../../routes/url-parser";
 
 export default class StoryDetailPage {
@@ -21,66 +22,49 @@ export default class StoryDetailPage {
     this.#presenter.loadDetailStory(id);
   }
 
-  onDetailStoryLoaded(story) {
+  async onDetailStoryLoaded(story) {
     this.#story = story;
-    this.renderSaveOrRemoveButton();
-  }
-
-  renderSaveOrRemoveButton() {
-    const story = this.#story;
     const container = document.getElementById("story-detail-container");
     container.innerHTML = `
-      <div class="card shadow-sm">
-        <img src="${story.photoUrl}" class="card-img-top" alt="${story.name}">
+      <div class="card h-100 shadow-sm border-0 rounded-4">
+        <img src="${story.photoUrl}" class="card-img-top rounded-top-4" alt="${story.name}">
         <div class="card-body">
-          <h3 class="card-title">${story.name}</h3>
+          <h2 class="card-title text-info"><i class="fas fa-user"></i> ${story.name}</h2>
           <p class="card-text">${story.description}</p>
-          <p class="card-text"><small class="text-muted">${new Date(
+          <p class="card-text"><small class="text-muted"><i class="fas fa-calendar-alt"></i> ${new Date(
             story.createdAt
           ).toLocaleString()}</small></p>
-          <p class="card-text"><small class="text-muted">Lat: ${
+          <p class="card-text"><small class="text-muted"><i class="fas fa-map-pin"></i> Lat: ${
             story.lat || "-"
           }, Lon: ${story.lon || "-"}</small></p>
-          <div id="save-remove-btn-container"></div>
+          <div id="save-remove-btn" class="mt-3"></div>
         </div>
       </div>
     `;
-    this.#presenter.showSaveButton();
-  }
-
-  renderSaveButton() {
-    const btnContainer = document.getElementById("save-remove-btn-container");
-    btnContainer.innerHTML = `<button id="save-story-btn" class="btn btn-success mt-3"><i class="fas fa-save"></i> Simpan Story</button>`;
-    document.getElementById("save-story-btn").addEventListener("click", () => {
-      this.#presenter.saveStory(this.#story);
-    });
-  }
-
-  renderRemoveButton() {
-    const btnContainer = document.getElementById("save-remove-btn-container");
-    btnContainer.innerHTML = `<button id="remove-story-btn" class="btn btn-danger mt-3"><i class="fas fa-trash"></i> Hapus Story</button>`;
-    document
-      .getElementById("remove-story-btn")
-      .addEventListener("click", () => {
-        this.#presenter.removeStory(this.#story.id);
-      });
-  }
-
-  saveStorySuccess(message) {
-    alert(message);
     this.renderSaveOrRemoveButton();
   }
 
-  saveStoryFailed(message) {
+  async renderSaveOrRemoveButton() {
+    const btnContainer = document.getElementById("save-remove-btn");
+    const isSaved = await Database.getReportById(this.#story.id);
+    if (isSaved) {
+      btnContainer.innerHTML = `<button id="remove-btn" class="btn btn-danger">Hapus Story</button>`;
+      document.getElementById("remove-btn").onclick = () =>
+        this.#presenter.removeStory(this.#story.id);
+    } else {
+      btnContainer.innerHTML = `<button id="save-btn" class="btn btn-success">Simpan Story</button>`;
+      document.getElementById("save-btn").onclick = () =>
+        this.#presenter.saveStory(this.#story);
+    }
+  }
+
+  saveStorySuccess(message) {
+    this.renderSaveOrRemoveButton();
     alert(message);
   }
 
   removeStorySuccess(message) {
-    alert(message);
     this.renderSaveOrRemoveButton();
-  }
-
-  removeStoryFailed(message) {
     alert(message);
   }
 

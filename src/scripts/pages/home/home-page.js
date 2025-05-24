@@ -26,7 +26,7 @@ export default class HomePage {
 
   onStoriesLoaded(stories) {
     this.#stories = stories;
-    
+
     // Render daftar stories
     const storiesList = document.getElementById("stories-list");
     storiesList.innerHTML = this.#stories
@@ -34,13 +34,9 @@ export default class HomePage {
         (story) => `
       <div class="col-md-4">
         <div class="card h-100 shadow-sm border-0 rounded-4">
-          <img src="${
-            story.photoUrl
-          }" class="card-img-top rounded-top-4" alt="${story.name}">
+          <img src="${story.photoUrl}" class="card-img-top rounded-top-4" alt="${story.name}">
           <div class="card-body">
-            <h5 class="card-title text-info"><i class="fas fa-user"></i> ${
-              story.name
-            }</h5>
+            <h5 class="card-title text-info"><i class="fas fa-user"></i> ${story.name}</h5>
             <p class="card-text">${story.description}</p>
             <p class="card-text"><small class="text-muted"><i class="fas fa-calendar-alt"></i> ${new Date(
               story.createdAt
@@ -48,9 +44,7 @@ export default class HomePage {
             <p class="card-text"><small class="text-muted"><i class="fas fa-map-pin"></i> Lat: ${
               story.lat || "-"
             }, Lon: ${story.lon || "-"}</small></p>
-            <a href="#/story/${
-              story.id
-            }" class="btn btn-outline-info mt-2">Lihat Detail</a>
+            <a href="#/story/${story.id}" class="btn btn-outline-info mt-2">Lihat Detail</a>
           </div>
         </div>
       </div>
@@ -58,6 +52,7 @@ export default class HomePage {
       )
       .join("");
 
+    // Render peta dengan marker
     this.#renderMap();
   }
 
@@ -94,4 +89,3 @@ export default class HomePage {
     });
   }
 }
-

@@ -6,8 +6,7 @@ import * as AuthModel from './utils/auth';
 import { registerServiceWorker } from './utils/index';
 
 document.addEventListener('DOMContentLoaded', async () => {
-  await registerServiceWorker();
-  console.log('Berhasil mendaftarkan service worker.');
+  
   const app = new App({
     content: document.getElementById('main-content'),
   });
@@ -16,7 +15,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   window.addEventListener('hashchange', async () => {
     await app.renderPage();
   });
-
+await registerServiceWorker();
+  console.log('Berhasil mendaftarkan service worker.');
   // Tambahkan event listener untuk tombol logout
   document.body.addEventListener('click', (e) => {
     if (e.target && e.target.id === 'logout-btn') {

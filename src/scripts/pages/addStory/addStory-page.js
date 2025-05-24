@@ -140,18 +140,11 @@ export default class AddStoryPage {
       });
   }
 
-onAddStorySuccess(message) {
-  // Tampilkan notifikasi browser jika diizinkan
-  if ("Notification" in window && Notification.permission === "granted") {
-    new Notification("Story baru berhasil dibuat!", {
-      body: "Cerita kamu sudah dipublikasikan.",
-      icon: "/favicon.png", // ganti dengan path ikon yang sesuai
-    });
+  // Callback untuk presenter
+  onAddStorySuccess(message) {
+    alert(message);
+    location.hash = "/";
   }
-  alert(message);
-  location.hash = "/";
-}
-
 
   onAddStoryFailed(message) {
     alert(message);
