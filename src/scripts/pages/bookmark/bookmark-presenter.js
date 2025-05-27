@@ -11,10 +11,10 @@ export default class BookmarkPresenter {
     try {
       // Ambil semua story tersimpan dari IndexedDB
       const dbInstance = await import("idb").then(({ openDB }) =>
-        openDB("StoryApp", 1)
+        openDB("StoryApp", 2)
       );
-      const stories = await dbInstance.getAll("saved-Story");
-      // const stories = await Database.getAllReports();
+      // const stories = await dbInstance.getAll("saved-Story");
+      const stories = await Database.getAllReports();
       this.#view.onBookmarksLoaded(stories);
     } catch (err) {
       this.#view.onBookmarksFailed("Gagal memuat story tersimpan.");
