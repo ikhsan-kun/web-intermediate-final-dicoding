@@ -19,13 +19,7 @@ export default class DetailStoryPresenter {
       // Hapus auto-save di sini
       this.#view.onDetailStoryLoaded(response.story || response);
     } catch (err) {
-      // Saat offline, ambil dari IndexedDB
-      const story = await Database.getReportById(id);
-      if (story) {
-        this.#view.onDetailStoryLoaded(story);
-      } else {
-        this.#view.onDetailStoryFailed("Gagal memuat detail cerita (offline & belum pernah dibuka).");
-      }
+      console.log(err)
     }
   }
 
