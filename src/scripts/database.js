@@ -4,7 +4,7 @@ const DB_NAME = 'StoryApp';
 const STORE_NAME = 'saved-Story';
 
 function getDB() {
-  return openDB(DB_NAME, 1, {
+  return openDB(DB_NAME, 2, {
     upgrade(db) {
       if (!db.objectStoreNames.contains(STORE_NAME)) {
         db.createObjectStore(STORE_NAME, { keyPath: 'id' });
