@@ -1,0 +1,7 @@
+#skip-link:focus {
+  left: 0 !important;
+  top: 0;
+  z-index: 2000 !important; /* lebih tinggi dari navbar */
+  position: absolute;
+  outline: 2px solid #333;
+}
